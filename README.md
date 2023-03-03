@@ -4,6 +4,8 @@
 
 Commodity Correlation Program
 
+Main.py is the actual python program.
+
 In this program, we are going to see what type of correlations, if any, are between WTI Oil, Brent Oil, Corn, Cotton, and Wheat.
 
 Currently, we are pulling data from AlphaVantageAPI and saving it all in a merged prices dataframe. We then melt the merged dataframe, 
