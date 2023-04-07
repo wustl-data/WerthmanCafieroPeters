@@ -71,7 +71,7 @@ def load_data(conn, table_name, filepath):
             with conn.cursor() as cur:
                 cur.execute(
                     f"INSERT INTO {table_name} (Month, Commodity, Price, Currency, Symbol) VALUES (%s, %s, %s, %s, %s, %s);",
-                    (row[0], row[1], float(row[2]), row[3], row[4], row[5])
+                    (row[0], row[1], float(row[2]), row[3], row[4])
                 )
                 conn.commit()
 
@@ -118,8 +118,8 @@ if __name__ == '__main__':
     )
     #create_table(conn, 'commodities2')
     #table_exists(conn, 'commodities2')
-    drop_unit_column(conn)
-    #load_data(conn, 'commodities2', '/Users/michael/489856-489214-487404/melted_commodity_prices.csv')
+    #drop_unit_column(conn)
+    load_data(conn, 'commodities2', '/Users/michael/489856-489214-487404/melted_commodity_prices.csv')
     #table_name = "commodities"
     #if not table_exists(conn, 'commodities'):
        # create_table(conn, 'commodities')
