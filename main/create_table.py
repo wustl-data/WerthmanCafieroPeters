@@ -2,6 +2,10 @@ import psycopg2
 from dotenv import load_dotenv
 import os
 import csv
+import datetime
+import pandas as pd
+
+
 
 
 import csv
@@ -13,7 +17,10 @@ def transform_csv(rows):
         row_dict = {}
         row_dict['Month'] = row[0]
         row_dict['Commodity'] = row[1]
-        row_dict['Price'] = float(row[2])
+        try:
+            row_dict['Price'] = float(row[2])
+        except ValueError:
+            row_dict['Price'] = 0.0
         row_dict['(Unit, Currency)'] = row[3].strip('"').split(', ')
         row_dict['Symbol'] = row[4]
         data.append(row_dict)
@@ -70,12 +77,18 @@ def load_data(conn, table_name, filepath):
             print(row)
             with conn.cursor() as cur:
                 cur.execute(
-                    f"INSERT INTO {table_name} (Month, Commodity, Price, Currency, Symbol) VALUES (%s, %s, %s, %s, %s, %s);",
+                    f"INSERT INTO {table_name} (Month, Commodity, Price, Currency, Symbol) VALUES (%s, %s, %s, %s, %s);",
                     (row[0], row[1], float(row[2]), row[3], row[4])
                 )
                 conn.commit()
 
 
+
+def get_most_recent_years(conn, table_name, num_years):
+    with conn.cursor() as cur:
+        cur.execute(f"SELECT DATE_TRUNC('year', Month) AS year, * FROM {table_name} ORDER BY year DESC;")
+        rows = cur.fetchall()
+        return [row for row in rows if row[0].year >= (2023 - num_years)]
 
 
 def table_exists(conn, table_name):
@@ -99,6 +112,8 @@ def table_exists(conn, table_name):
             print(f"Table {table_name} does not exist in the database.")
 
 
+    
+
 
 if __name__ == '__main__':
     load_dotenv()
@@ -119,20 +134,29 @@ if __name__ == '__main__':
     #create_table(conn, 'commodities2')
     #table_exists(conn, 'commodities2')
     #drop_unit_column(conn)
-    load_data(conn, 'commodities2', '/Users/michael/489856-489214-487404/melted_commodity_prices.csv')
-    #table_name = "commodities"
+    #load_data(conn, 'commodities2', 'melted_commodity_prices.csv')
+    
+    # table_name = "commodities2"
     #if not table_exists(conn, 'commodities'):
        # create_table(conn, 'commodities')
    # else:
       #  print('table already exists')
 
-
-    #data = read_data('/Users/michael/489856-489214-487404/melted_commodity_prices.csv')
+    data = read_data('melted_commodity_prices.csv')
     #transformed_data = transform_csv(data)
 
-    #insert_data(conn, table_name, transformed_data)
-    #create_table(conn, table_name)
-   # insert_data(conn, table_name, data)
+
+    # insert_data(conn, table_name, transformed_data)
+    # create_table(conn, table_name)
+    # insert_data(conn, table_name, data)
+    #
+    #create_table(conn, 'commodities2')
+    #table_exists(conn, 'commodities2')
+    #drop_unit_column(conn)
+    #recent_years_data = get_most_recent_years(conn, 'commodities2', 5) # retrieve 5 most recent years of data
+    load_data(conn, 'commodities2', 'melted_commodity_prices.csv')
+    #table_exists(conn, 'commodities2')
+    #conn.close()
 
 
 

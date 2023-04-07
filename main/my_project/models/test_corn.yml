@@ -1,0 +1,17 @@
+version: 2
+
+tests:
+  - name: test_corn_prices
+    description: Test that all prices for corn in the 5 year model are positive
+    test-type: acceptance
+    severity: WARNING
+    meta:
+      type: validation
+    queries:
+      - query: >
+          SELECT month, price
+          FROM {{ref('5yearmodel')}}
+          WHERE commodity = 'Corn'
+        threshold: 0
+        comparator: ">"
+        message: "Corn should not be negative"

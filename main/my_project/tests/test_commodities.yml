@@ -1,0 +1,56 @@
+version: 2
+models:
+  - name: commodities
+    columns:
+      - name: id
+        tests:
+          - unique
+      - name: month
+        tests:
+          - not_null
+          - accepted_values:
+              values:
+                - "01-01-2021"
+      - name: commodityName
+        tests:
+          - not_null
+          - accepted_values:
+              values:
+                - Corn
+                - Wheat
+                - Rice
+                - Soybeans
+      - name: price
+        tests:
+          - not_null
+          - accepted_values:
+              values:
+                - 10.0
+                - 20.0
+                - 30.0
+                - 40.0
+                - 50.0
+                - 60.0
+                - 70.0
+                - 80.0
+                - 90.0
+                - 100.0
+                - 110.0
+                - 120.0
+      - name: currency
+        tests:
+          - not_null
+          - accepted_values:
+              values:
+                - USD
+                - CAD
+                - EUR
+      - name: symbol
+        tests:
+          - not_null
+          - accepted_values:
+              values:
+                - CO
+                - WH
+                - RI
+                - SB

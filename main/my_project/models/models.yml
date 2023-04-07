@@ -1,0 +1,15 @@
+version: 2
+
+sources:
+  - name: 5year
+    database: postgres
+    schema: commodities2
+    tables:
+      - name: commodities2
+        sql: |-
+          SELECT * 
+          FROM commodities.dbt.commodities2 
+          WHERE month >= TO_DATE('2018-01-01', 'YYYY-MM-DD')
+          ORDER BY date DESC
+
+  

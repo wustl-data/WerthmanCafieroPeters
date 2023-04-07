@@ -29,7 +29,10 @@ def get_data(url, key, name):
     prices = []
     dates = []
     for i in range(len(commoditiesData)):
-        prices.append(commoditiesData['data'].iloc[i]['value'])
+        if 'value' in commoditiesData['data'].iloc[i] and int(commoditiesData['data'].iloc[i]['date'][:4]) >= 1990:
+            prices.append(commoditiesData['data'].iloc[i]['value'])
+        else:
+            prices.append(0)
         dates.append(commoditiesData['data'].iloc[i]['date'])
 
     d = {'Month': dates, name: prices}
