@@ -5,7 +5,7 @@ conn = psycopg2.connect(
     host="localhost",
     database="postgres",
     user="postgres",
-    password="punkinbunker"
+    password="Bake59as"
 )
 
 # Open a cursor to perform database operations
