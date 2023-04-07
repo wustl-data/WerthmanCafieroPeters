@@ -1,6 +1,6 @@
 import psycopg2
 hostname = 'localhost'
-database = 'Commodity'
+database = 'postgres'
 username = 'postgres'
-pwd = 'admin'
+pwd = 'Bake59as'
 port_id = 5432
