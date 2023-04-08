@@ -1,13 +1,9 @@
-version: 2
-
-name: Correlation
-
-test-type: acceptance
-
 models:
-  - name: AverageCottonvsWheatCorr
-    tests:
-      - not_between:
-          column: avg_correlation
-          value: [-1, 1]
-          severity: ERROR
+  - name: 5yearmodel
+    columns:
+      - name: id
+      - name: month
+      - name: commodity
+      - name: price
+      - name: currency
+      - name: symbol
