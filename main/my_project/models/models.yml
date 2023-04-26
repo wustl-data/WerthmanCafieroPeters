@@ -12,4 +12,28 @@ sources:
           WHERE month >= TO_DATE('2018-01-01', 'YYYY-MM-DD')
           ORDER BY date DESC
 
-  
+models:
+- name: 5yearmodel
+  columns:
+    - name: id
+    - name: month
+    - name: commodity
+    - name: price
+    - name: currency
+    - name: symbol
+
+tests:
+  - name: test_corn_prices
+    description: Test that all prices for corn in the 5 year model are positive
+    test-type: acceptance
+    severity: WARNING
+    meta:
+      type: validation
+    queries:
+      - query: >
+          SELECT month, price
+          FROM {{ref('5yearmodel')}}
+          WHERE commodity = 'Corn'
+        threshold: 0
+        comparator: ">"
+        message: "Corn should not be negative"
