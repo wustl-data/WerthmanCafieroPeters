@@ -2,7 +2,6 @@ site_name: CCD
 site_url: https://CommodityDocs.com/
 nav:
     - Home: index.md
-    - About: about.md
 theme:
   name: "readthedocs"
 

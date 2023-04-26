@@ -1,1 +1,5 @@
-logs
+logs/
+site/
+target/
+dbt_packages/
+.user.yml

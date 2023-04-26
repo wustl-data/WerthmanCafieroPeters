@@ -10,6 +10,9 @@ python = "^3.10"
 dbt-postgres = "^1.4.6"
 pandas = "^2.0.1"
 python-dotenv = "^1.0.0"
+mkdocs = "^1.4.2"
+mkdocstrings = {extras = ["python"], version = "^0.21.2"}
+mkdocs-material = "^9.1.8"
 
 
 [build-system]

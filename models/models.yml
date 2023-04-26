@@ -3,7 +3,6 @@ version: 2
 sources:
   - name: 5year
     database: postgres
-    schema: commodities2
     tables:
       - name: commodities2
         sql: |-
